@@ -39,9 +39,6 @@ def send_to_kafka(api_invoke_url, payload):
                 response = requests.request("POST",api_invoke_url , headers=headers, data=payload)
                 print(f'response code: {response.status_code}')
 
-
-                
-
 def run_infinite_post_data_loop():
     while True:
         sleep(random.randrange(0, 2))

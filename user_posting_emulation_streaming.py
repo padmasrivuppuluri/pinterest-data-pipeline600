@@ -11,11 +11,8 @@ import yaml
 
 random.seed(100)
 
-pin_invoke_url = "https://b2ga3d1vdc.execute-api.us-east-1.amazonaws.com/dev/streams/streaming-0affec8c1897-pin/record"
-geo_invoke_url =  "https://b2ga3d1vdc.execute-api.us-east-1.amazonaws.com/dev/streams/streaming-0affec8c1897-geo/record"
-user_invoke_url = "https://b2ga3d1vdc.execute-api.us-east-1.amazonaws.com/dev/streams/streaming-0affec8c1897-user/record"  
-
-                
+invoke_url = "https://b2ga3d1vdc.execute-api.us-east-1.amazonaws.com/dev/streams/Kinesis-Prod-Stream/records"
+          
 class AWSDBConnector:
       
     def __init__(self,creds_file = 'db_creds.yaml'):
@@ -67,30 +64,41 @@ def run_infinite_post_data_loop():
             
             #To send JSON messages we need to follow this structure
             payload_pin = json.dumps({
-                "records":  [
-                    {
-                    #Data should be send as pairs of column_name:value, with different columns separated by commas    
-                    "value": {"index": pin_result["index"],"unique_id": pin_result["unique_id"],"title": pin_result["title"],"description": pin_result["description"],
-                            "poster_name": pin_result["poster_name"],"follower_count": pin_result["follower_count"],"tag_list": pin_result["tag_list"],
-                            "is_image_or_video": pin_result["is_image_or_video"],"image_src": pin_result["image_src"],"downloaded": pin_result["downloaded"],
-                            "save_location": pin_result["save_location"],"category": pin_result["category"]}
-                            }
-                ]
-            })
-            payload_geo =json.dumps({
-                "records":  [
-                    {"value":{"ind": geo_result["ind"],"timestamp": str(geo_result["timestamp"]),"latitude":geo_result["latitude"],"longitude":geo_result["longitude"],"country":geo_result["country"]} }
-                ]
-            })
-            payload_user = json.dumps({
-                "records":  [
-                    {"value":{"ind": user_result["ind"],"first_name":user_result["first_name"],"last_name":user_result["last_name"],"age": user_result["age"],"date_joined": str(user_result["date_joined"])} }
-                ]
+                 
+                 "StreamName": "Kinesis-Prod-Stream",
+                 "Data": {
+                      "index": pin_result["index"],"unique_id": pin_result["unique_id"],"title": pin_result["title"],"description": pin_result["description"],
+                      "poster_name": pin_result["poster_name"],"follower_count": pin_result["follower_count"],"tag_list": pin_result["tag_list"],
+                      "is_image_or_video": pin_result["is_image_or_video"],"image_src": pin_result["image_src"],"downloaded": pin_result["downloaded"],
+                      "save_location": pin_result["save_location"],"category": pin_result["category"]
+                            },
+                "PartitionKey": "1254dc635ec5-pin"
             })
 
-            send_data_to_streams(pin_invoke_url, payload_pin)
-            send_data_to_streams(geo_invoke_url, payload_geo)
-            send_data_to_streams(user_invoke_url, payload_user)
+            payload_geo = json.dumps({
+                "StreamName": "Kinesis-Prod-Stream",
+                "Data": { 
+                    "ind": geo_result["ind"],"timestamp": str(geo_result["timestamp"]),
+                    "latitude": geo_result["latitude"],"longitude": geo_result["longitude"],"country": geo_result["country"]
+                    },
+                "PartitionKey": "1254dc635ec5-geo"
+            })
+
+            payload_user = json.dumps({
+                "StreamName": "Kinesis-Prod-Stream",
+                "Data": {
+                    "ind": user_result["ind"],
+                    "first_name": user_result["first_name"],
+                    "last_name": user_result["last_name"],
+                    "age": user_result["age"],
+                    "date_joined": str(user_result["date_joined"])
+                },
+                "PartitionKey": "1254dc635ec5-user"
+            })
+
+            send_data_to_streams(invoke_url, payload_pin)
+            send_data_to_streams(invoke_url, payload_geo)
+            send_data_to_streams(invoke_url, payload_user)
             # print(pin_result)
             # print(geo_result)
             # print(user_result)
