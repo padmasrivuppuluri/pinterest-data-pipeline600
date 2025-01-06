@@ -11,7 +11,7 @@ import yaml
 
 random.seed(100)
 
-invoke_url = "https://b2ga3d1vdc.execute-api.us-east-1.amazonaws.com/dev/streams/Kinesis-Prod-Stream/records"
+invoke_url = "https://b2ga3d1vdc.execute-api.us-east-1.amazonaws.com/dev/streams/Kinesis-Prod-Stream/record"
           
 class AWSDBConnector:
       
