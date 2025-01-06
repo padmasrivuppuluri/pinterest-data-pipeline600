@@ -1,0 +1,5 @@
+HOST: "pinterestdbreadonly.cq2e8zno855e.eu-west-1.rds.amazonaws.com"
+USER: project_user
+PASSWORD: :t%;yCY3Yjg
+DATABASE: pinterest_data
+PORT: 3306
