@@ -11,7 +11,7 @@ import yaml
 
 random.seed(100)
 
-invoke_url = "https://b2ga3d1vdc.execute-api.us-east-1.amazonaws.com/dev/streams/Kinesis-Prod-Stream/records"
+invoke_url = "https://b2ga3d1vdc.execute-api.us-east-1.amazonaws.com/dev/streams/Kinesis-Prod-Stream/record"
           
 class AWSDBConnector:
       
@@ -35,6 +35,7 @@ def send_data_to_streams(api_invoke_url, payload):
                 headers = {'Content-Type': 'application/json'}
                 response = requests.request("PUT",api_invoke_url , headers=headers, data=payload)
                 print(f'response code: {response.status_code}')
+                #print(f'content: {response.content}')
 
 def run_infinite_post_data_loop():
     while True:
@@ -61,10 +62,9 @@ def run_infinite_post_data_loop():
             
             for row in user_selected_row:
                 user_result = dict(row._mapping)
-            
+
             #To send JSON messages we need to follow this structure
             payload_pin = json.dumps({
-                 
                  "StreamName": "Kinesis-Prod-Stream",
                  "Data": {
                       "index": pin_result["index"],"unique_id": pin_result["unique_id"],"title": pin_result["title"],"description": pin_result["description"],
@@ -72,8 +72,8 @@ def run_infinite_post_data_loop():
                       "is_image_or_video": pin_result["is_image_or_video"],"image_src": pin_result["image_src"],"downloaded": pin_result["downloaded"],
                       "save_location": pin_result["save_location"],"category": pin_result["category"]
                             },
-                "PartitionKey": "1254dc635ec5-pin"
-            })
+                "PartitionKey": "1254dc635ec5-pin-pat"
+            })  
 
             payload_geo = json.dumps({
                 "StreamName": "Kinesis-Prod-Stream",
@@ -81,7 +81,7 @@ def run_infinite_post_data_loop():
                     "ind": geo_result["ind"],"timestamp": str(geo_result["timestamp"]),
                     "latitude": geo_result["latitude"],"longitude": geo_result["longitude"],"country": geo_result["country"]
                     },
-                "PartitionKey": "1254dc635ec5-geo"
+                "PartitionKey": "partition-geo"
             })
 
             payload_user = json.dumps({
@@ -93,7 +93,7 @@ def run_infinite_post_data_loop():
                     "age": user_result["age"],
                     "date_joined": str(user_result["date_joined"])
                 },
-                "PartitionKey": "1254dc635ec5-user"
+                "PartitionKey": "partition-user"
             })
 
             send_data_to_streams(invoke_url, payload_pin)
