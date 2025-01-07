@@ -2,10 +2,9 @@
 
 ## Table of contents:
 - [Project Overview](#Project-overview) 
-- [Data Pipeline](#Data Pipeline)
+- [Data Pipeline diagrams](#Data-Pipeline-diagrams) 
 - [Dependencies](#Dependencies)
-- [How to Run the Project](#How to run the project)
-- [Usage](#Usage)
+- [How to run the project](#How-to-run-the-project) 
 
 ## Project Overview:
 ### Description:
@@ -98,7 +97,7 @@ Set up the environment.
 - Leverage the provided Databricks-Airflow-env MWAA environment and mwaa-dags-bucket to configure an Airflow Directed Acyclic Graph (DAG).
 - Set up the DAG to trigger a Databricks Notebook on a specified schedule for automated processing.
 
-![img](airflow.png)
+![img](image-3.png)
 
 #### Manual Triggering for Immediate Execution:
 - Ensure that the DAG can also be manually triggered from the AWS MWAA interface for on-demand execution, allowing for flexible processing when required.
