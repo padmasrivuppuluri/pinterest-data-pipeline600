@@ -37,16 +37,14 @@ Set up the environment.
 ### Milestone 2: 
 Sign into AWS to build the pipeline
 
-### Milestone 3: 
-1. Configure the EC2 Kafka Client:
+### Milestone 3: Configure the EC2 Kafka Client:
 - Generate a .pem file for EC2 instance access through Parameter Store and store it with the key pair name.
 - Install Kafka and the IAM MSK authentication package on the EC2 instance. Ensure that the required permissions are set up for MSK cluster authentication.
 - Modify the client.properties file located in the kafka_folder/bin directory to enable AWS IAM authentication for the cluster.
 - Use the Bootstrap servers and Apache Zookeeper strings from the MSK Management Console to create specific Kafka topics.
 - The goal of configuring the EC2 Kafka client was to enable secure access to the MSK cluster through IAM-based authentication.
 
-### Milestone 4:
-2. Connecting an MSK Cluster to an S3 Bucket:
+### Milestone 4: Connecting an MSK Cluster to an S3 Bucket:
 - Create or locate the target S3 bucket in the S3 console.
 - Download the Confluent.io Amazon S3 Connector to the EC2 client and upload it to the identified S3 bucket.
 - In the MSK Connect console, create a custom plugin.
@@ -72,17 +70,14 @@ Sign into AWS to build the pipeline
 - Replace empty or irrelevant values in the df_pin DataFrame.
 - Ensure that all data is correctly represented with numeric data types where applicable.
 - Reorganize the columns to ensure they follow the desired order for analysis.
-
 2. Data Cleaning for df_geo DataFrame:
 - Create a new array that stores the coordinates for geographic data in the df_geo DataFrame.
 - Convert data types where necessary to ensure consistency.
 - Reorder the columns to match the required format for further processing.
-
 3. Data Cleaning for df_user DataFrame:
 - Concatenate the first_name and last_name fields to create a user_name column in the df_user DataFrame.
 - Adjust data types to ensure proper consistency across the DataFrame.
 - Reorder the columns to improve readability and maintain consistency.
-
 4. Performing Spark DataFrame Queries:
 - Use Spark's DataFrame operations in Databricks to query the cleaned data and extract meaningful insights.
 - Implement various queries to answer relevant questions based on the structured data.
@@ -91,13 +86,10 @@ Sign into AWS to build the pipeline
 1. Set Up Airflow DAG in MWAA Environment:
 - Leverage the provided Databricks-Airflow-env MWAA environment and mwaa-dags-bucket to configure an Airflow Directed Acyclic Graph (DAG).
 - Set up the DAG to trigger a Databricks Notebook on a specified schedule for automated processing.
-
 2. Manual Triggering for Immediate Execution:
 - Ensure that the DAG can also be manually triggered from the AWS MWAA interface for on-demand execution, allowing for flexible processing when required.
-
 3. Efficient Batch Processing:
 - By using AWS MWAA, this setup facilitates seamless batch processing, automating the scheduling of Databricks Notebooks, ensuring efficient data processing and analysis without requiring manual intervention.
-
 ![img](image.png)
 
 ### Milestone 9: Stream Processing- AWS Kinesis
