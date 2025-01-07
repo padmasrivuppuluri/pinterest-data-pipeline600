@@ -98,6 +98,8 @@ Set up the environment.
 - Leverage the provided Databricks-Airflow-env MWAA environment and mwaa-dags-bucket to configure an Airflow Directed Acyclic Graph (DAG).
 - Set up the DAG to trigger a Databricks Notebook on a specified schedule for automated processing.
 
+![img](airflow.png)
+
 #### Manual Triggering for Immediate Execution:
 - Ensure that the DAG can also be manually triggered from the AWS MWAA interface for on-demand execution, allowing for flexible processing when required.
 
