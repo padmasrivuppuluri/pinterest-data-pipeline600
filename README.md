@@ -18,8 +18,11 @@ The "Pinterest Data Pipeline" project replicates Pinterest's data pipeline on th
 - Establish a data streaming pipeline.
 
 ## Data Pipeline
+### Data flow from S3 to Databricks
+![img](image.png)
 
-  Amazon RDS
+### Data flow fromKinesis Streams to Databricks
+![img](image-1.png)
 
 ## How to run the project:
 1. Clone the repository using:
