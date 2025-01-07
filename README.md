@@ -17,10 +17,10 @@ The "Pinterest Data Pipeline" project replicates Pinterest's data pipeline on th
 - Establish a data streaming pipeline.
 
 ## Data Pipeline
-### Data flow from S3 to Databricks
+1. Data flow from S3 to Databricks
 ![img](image.png)
 
-### Data flow fromKinesis Streams to Databricks
+2. Data flow fromKinesis Streams to Databricks
 ![img](image-1.png)
 
 ## How to run the project:
@@ -37,12 +37,8 @@ Set up the environment.
 ### Milestone 2: 
 Sign into AWS to build the pipeline
 
-## Project structure:
-### Milestone 1:
-Set up the environment.
-
 ### Milestone 3: 
-#### Configure the EC2 Kafka Client:
+1. Configure the EC2 Kafka Client:
 - Generate a .pem file for EC2 instance access through Parameter Store and store it with the key pair name.
 - Install Kafka and the IAM MSK authentication package on the EC2 instance. Ensure that the required permissions are set up for MSK cluster authentication.
 - Modify the client.properties file located in the kafka_folder/bin directory to enable AWS IAM authentication for the cluster.
@@ -50,20 +46,19 @@ Set up the environment.
 - The goal of configuring the EC2 Kafka client was to enable secure access to the MSK cluster through IAM-based authentication.
 
 ### Milestone 4:
-#### Connecting an MSK Cluster to an S3 Bucket:
+2. Connecting an MSK Cluster to an S3 Bucket:
 - Create or locate the target S3 bucket in the S3 console.
 - Download the Confluent.io Amazon S3 Connector to the EC2 client and upload it to the identified S3 bucket.
 - In the MSK Connect console, create a custom plugin.
 - During the connector setup, select the IAM role for MSK authentication to ensure secure access to MSK and MSK Connect.
 
-### Milestone 5:
-#### API Gateway and Kafka REST Proxy Setup
-##### API Gateway Configuration:
+### Milestone 5: API Gateway and Kafka REST Proxy Setup
+1. API Gateway Configuration:
 - Utilize the provided API by configuring a PROXY integration.
 - Set up an HTTP ANY method for the resource, ensuring the correct EC2 PublicDNS from your EC2 machine is used.
 - Deploy the API to generate the Invoke URL, which will be used for communication.
 
-##### Kafka REST Proxy Configuration:
+2. Kafka REST Proxy Configuration:
 - Install the Confluent Kafka REST Proxy package on your EC2 client machine.
 - Modify the kafka-rest.properties file to configure IAM authentication for connecting to the MSK cluster.
 - Start the Kafka REST Proxy to enable seamless data transmission between your API and the MSK Cluster, using the previously configured plugin-connector pair.
@@ -73,37 +68,37 @@ Set up the environment.
 - Create three distinct Data Frames (df_pin, df_geo, df_user) for processing Pinterest post data, geolocation data, and user data.
 
 ### Milestone 7: spark on Databricks:
-#### Data Cleaning for df_pin DataFrame:
+1. Data Cleaning for df_pin DataFrame:
 - Replace empty or irrelevant values in the df_pin DataFrame.
 - Ensure that all data is correctly represented with numeric data types where applicable.
 - Reorganize the columns to ensure they follow the desired order for analysis.
 
-#### Data Cleaning for df_geo DataFrame:
+2. Data Cleaning for df_geo DataFrame:
 - Create a new array that stores the coordinates for geographic data in the df_geo DataFrame.
 - Convert data types where necessary to ensure consistency.
 - Reorder the columns to match the required format for further processing.
 
-#### Data Cleaning for df_user DataFrame:
+3. Data Cleaning for df_user DataFrame:
 - Concatenate the first_name and last_name fields to create a user_name column in the df_user DataFrame.
 - Adjust data types to ensure proper consistency across the DataFrame.
 - Reorder the columns to improve readability and maintain consistency.
 
-#### Performing Spark DataFrame Queries:
+4. Performing Spark DataFrame Queries:
 - Use Spark's DataFrame operations in Databricks to query the cleaned data and extract meaningful insights.
 - Implement various queries to answer relevant questions based on the structured data.
 
 ### Milestone 8: AWS MWAA
-#### Set Up Airflow DAG in MWAA Environment:
+1. Set Up Airflow DAG in MWAA Environment:
 - Leverage the provided Databricks-Airflow-env MWAA environment and mwaa-dags-bucket to configure an Airflow Directed Acyclic Graph (DAG).
 - Set up the DAG to trigger a Databricks Notebook on a specified schedule for automated processing.
 
-![img](image-3.png)
-
-#### Manual Triggering for Immediate Execution:
+2. Manual Triggering for Immediate Execution:
 - Ensure that the DAG can also be manually triggered from the AWS MWAA interface for on-demand execution, allowing for flexible processing when required.
 
-#### Efficient Batch Processing:
+3. Efficient Batch Processing:
 - By using AWS MWAA, this setup facilitates seamless batch processing, automating the scheduling of Databricks Notebooks, ensuring efficient data processing and analysis without requiring manual intervention.
+
+![img](image.png)
 
 ### Milestone 9: Stream Processing- AWS Kinesis
 - Configure an API with kinesis
