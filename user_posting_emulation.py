@@ -1,16 +1,14 @@
-import requests
 from time import sleep
 import random
 from multiprocessing import Process
-import boto3
-import json
 import sqlalchemy
 from sqlalchemy import text
 import yaml
 
-
+"""
+This script retrieves data from AWS RDS, formats it
+"""
 random.seed(100)
-
 
 class AWSDBConnector:
 
@@ -21,8 +19,7 @@ class AWSDBConnector:
         with open(self.creds_file, 'r') as f:
             data = yaml.safe_load(f)  # Load YAML file as a dictionary
         return data
-
-        
+  
     def create_db_connector(self):
         creds = self.read_db_creds()
         engine = sqlalchemy.create_engine(f"mysql+pymysql://{creds['USER']}:{creds['PASSWORD']}@{creds['HOST']}:{creds['PORT']}/{creds['DATABASE']}?charset=utf8mb4")

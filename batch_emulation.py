@@ -2,13 +2,14 @@ import requests
 from time import sleep
 import random
 from multiprocessing import Process
-import boto3
 import json
 import sqlalchemy
 from sqlalchemy import text
 import yaml
 
-
+"""
+This script retrieves data from AWS RDS, formats it, and sends it to Kafka topics.
+"""
 random.seed(100)
 
 pin_invoke_url = "https://b2ga3d1vdc.execute-api.us-east-1.amazonaws.com/dev/topics/0affec8c1897.pin"
@@ -25,7 +26,6 @@ class AWSDBConnector:
         with open(self.creds_file, 'r') as f:
             data = yaml.safe_load(f)  # Load YAML file as a dictionary
         return data
-
         
     def create_db_connector(self):
         creds = self.read_db_creds()
