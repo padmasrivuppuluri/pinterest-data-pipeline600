@@ -18,10 +18,10 @@ The "Pinterest Data Pipeline" project replicates Pinterest's data pipeline on th
 
 ## Data Pipeline
 1. Data flow from S3 to Databricks
-![img](image.png)
+![img](Screenshots/image.png)
 
 2. Data flow fromKinesis Streams to Databricks
-![img](image-1.png)
+![img](Screenshots/image-1.png)
 
 ## How to run the project:
 1. Clone the repository using:
