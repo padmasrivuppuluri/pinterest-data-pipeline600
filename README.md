@@ -16,6 +16,9 @@ The "Pinterest Data Pipeline" project replicates Pinterest's data pipeline on th
 - Explore and gain expertise in various AWS services.
 - Establish a data streaming pipeline.
 
+## Architecture: 
+![img](Screenshots/Architecture.jpg)
+
 ## Data Pipeline
 1. Data flow from S3 to Databricks
 ![img](Screenshots/image.png)
@@ -27,7 +30,7 @@ The "Pinterest Data Pipeline" project replicates Pinterest's data pipeline on th
 1. Clone the repository using:
 git clone https://github.com/padmasrivuppuluri/pinterest-data-pipeline600
 2. Run user_posting_emulation.py to extract the data from Amazon RDS and formats it
-3. Run batch_emulation.py ->Data will send to the kafka topics
+3. Run batch_emulation.py ->Extracts raw data and send to the kafka topics
 4. Run user_posting_emulation_streaming.py to extract the data from RDS and send to the Kinesis streams
 
 ## Project structure:

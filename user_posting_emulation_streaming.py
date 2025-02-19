@@ -34,9 +34,9 @@ new_connector = AWSDBConnector()
 
 def send_data_to_streams(api_invoke_url, payload):
                 headers = {'Content-Type': 'application/json'}
-                response = requests.request("PUT",api_invoke_url , headers=headers, data=payload)
+                response = requests.request("PUT",api_invoke_url, headers=headers, data=payload)
                 print(f'response code: {response.status_code}')
-                #print(f'content: {response.content}')
+                print(f'content: {response.content}')
 
 def run_infinite_post_data_loop():
     while True:
@@ -74,7 +74,7 @@ def run_infinite_post_data_loop():
                       "save_location": pin_result["save_location"],"category": pin_result["category"]
                             },
                 "PartitionKey": "1254dc635ec5-pin-pat"
-            })  
+            }) 
 
             payload_geo = json.dumps({
                 "StreamName": "Kinesis-Prod-Stream",
