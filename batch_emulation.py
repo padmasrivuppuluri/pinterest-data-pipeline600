@@ -38,6 +38,7 @@ def send_to_kafka(api_invoke_url, payload):
                 headers = {'Content-Type': 'application/vnd.kafka.json.v2+json'}
                 response = requests.request("POST",api_invoke_url , headers=headers, data=payload)
                 print(f'response code: {response.status_code}')
+                print(f'content: {response.content}')
 
 def run_infinite_post_data_loop():
     while True:
